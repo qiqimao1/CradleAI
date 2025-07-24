@@ -1,8 +1,6 @@
 # 介绍
 [简体中文](README.md)   
 
-[English](README-EN.MD) 
-
 [DeepWiki](https://deepwiki.com/AliceSyndrome285/CradleAI/5.2-memory-ui-and-table-memory-plugin)
 
 ## 界面预览
@@ -37,8 +35,11 @@
 </table>
 
 ## 联系与反馈
-*   **Discord:** https://discord.gg/TMmgtPpU (教程、答疑、bug 反馈、意见反馈)
-*   **QQ 群:** 1017292082 (答疑、bug 反馈、意见反馈)
+*   **Discord:** https://discord.gg/F5bCEQy5 (教程、答疑、bug 反馈、意见反馈)
+*   **QQ 群:** (答疑、bug 反馈、意见反馈)
+  
+二群：570343684
+一群：1017292082(已满）
 
 ## 更新日志：1.0.4
 
@@ -248,9 +249,3 @@
 1.  表格记忆：`https://github.com/muyoou/st-memory-enhancement`，在此感谢作者的代码分享，请大家多多支持原作者。
 2.  mem0：`https://github.com/mem0ai/mem0` 基于 [Apache-2.0 license](https://www.apache.org/licenses/LICENSE-2.0) 许可。
 3.  OpenAI-adapter：感谢 hajimi 作者提供测试渠道，项目地址：`https://github.com/wyeeeee/hajimi`。
-
-## 赞助
-
-如果您喜欢本项目并希望支持作者，可以请我喝一杯咖啡：
-
-[请作者喝一杯咖啡](https://cradleintro.top/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250430201333.png)
