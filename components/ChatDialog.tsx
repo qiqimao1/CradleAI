@@ -3378,11 +3378,6 @@ const combinedItems = useMemo(() => {
       const isUser = message.sender === 'user';
       // 判断是否为最后一条消息且等待AI回复
       const isLastUser = isUser && index === combinedItems.length - 1 && isWaitingForAI;
-
-      // 只对最后一条消息做 entering 动画，其余不做
-      const enteringAnimation = (index === combinedItems.length - 1)
-        ? FadeIn.duration(300)
-        : undefined;
       
       // 计算是否显示时间组
       const showTimeGroup = index === 0 || 
@@ -3396,12 +3391,6 @@ const combinedItems = useMemo(() => {
             styles.messageContainer,
             isUser ? styles.userMessageContainer : styles.botMessageContainer,
           ]}>
-            {/* 最后一条用户消息左侧显示 loading indicator */}
-            {isLastUser && (
-              <View style={{ justifyContent: 'center', marginLeft: 8, marginTop: 2 }}>
-                <ActivityIndicator size="small" color="#bbb" />
-              </View>
-            )}
             {renderMessageContent(message, isUser, index)}
           </View>
         </View>

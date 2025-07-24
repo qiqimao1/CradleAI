@@ -24,7 +24,6 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useCharacters } from '@/constants/CharactersContext';
 import { Character } from '@/shared/types';
 import * as DocumentPicker from 'expo-document-picker';
-import * as ImagePicker from 'expo-image-picker';
 import { CharacterImporter } from '@/utils/CharacterImporter';
 import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -1641,7 +1640,8 @@ const styles = StyleSheet.create<Styles>({
     backgroundColor: 'rgba(0,0,0,0.45)',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1000,
+    zIndex: 5000,
+    flex: 1,
   },
   importLoadingBox: {
     backgroundColor: '#222',

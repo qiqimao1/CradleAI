@@ -61,9 +61,7 @@ import PostChatService from '@/services/PostChat-service';
 import MessageService from '@/services/message-service';
 import AutoMessageService from '@/services/automessage-service';
 import AutoImageService from '@/services/AutoImageService';
-import AudioCacheManager from '@/utils/AudioCacheManager';
 
-// Global cache objects
 declare global {
   interface Window { __globalSettingsCache?: any }
 }
@@ -74,86 +72,6 @@ if (typeof window !== 'undefined' && !window.__globalSettingsCache) {
 
 // Character view mode cache
 export let characterViewModeCache: string | null = null;
-
-// Memory configuration type
-type MemoryConfig = {
-  embedder: {
-    provider: string;
-    config: {
-      apiKey: string;
-      model: string;
-      dimensions: number;
-      url: string;
-    };
-  };
-  vectorStore: {
-    provider: string;
-    config: {
-      collectionName: string;
-      dimension: number;
-      dbName: string;
-    };
-  };
-  llm: {
-    provider: string;
-    config: {
-      apiKey: string;
-      model: string;
-      apiProvider: string;
-      openrouter?: {
-        apiKey?: string;
-        model?: string;
-      };
-    };
-  };
-};
-
-// Create a stable memory configuration function
-interface CreateConfigFunction {
-  (user: any): MemoryConfig;
-  config?: MemoryConfig;
-}
-
-const createStableMemoryConfig: CreateConfigFunction = (user: any): MemoryConfig => {
-  if (!createStableMemoryConfig.config) {
-    createStableMemoryConfig.config = {
-      embedder: {
-        provider: 'zhipu',
-        config: {
-          apiKey: user?.settings?.chat?.zhipuApiKey || '',
-          model: 'embedding-3',
-          dimensions: 1024,
-          url: 'https://open.bigmodel.cn/api/paas/v4/embeddings'
-        }
-      },
-      vectorStore: {
-        provider: 'mobile_sqlite',
-        config: {
-          collectionName: 'character_memories',
-          dimension: 1024,
-          dbName: 'vector_store.db',
-        },
-      },
-      llm: {
-        provider: 'mobile_llm',
-        config: {
-          apiKey: user?.settings?.chat?.apiProvider === 'openrouter' 
-            ? user?.settings?.chat?.openrouter?.apiKey || ''
-            : user?.settings?.chat?.characterApiKey || '',
-          model: user?.settings?.chat?.apiProvider === 'openrouter'
-            ? user?.settings?.chat?.openrouter?.model || 'gpt-3.5-turbo'
-            : 'gpt-3.5-turbo',
-          apiProvider: user?.settings?.chat?.apiProvider || 'gemini',
-          openrouter: user?.settings?.chat?.openrouter,
-        },
-      },
-    };
-  }
-  return createStableMemoryConfig.config;
-};
-
-// Helper functions for performance optimization
-
 const App = () => {
   // 性能优化：页面可见性状态
   const [isPageVisible, setIsPageVisible] = useState(true);
@@ -273,11 +191,6 @@ const App = () => {
   const SIDEBAR_WIDTH = 280;
   const EXTRA_BG_IDS_KEY_PREFIX = 'extraBgProcessedIds-';
 
-  // Create a stable memory configuration - 使用 useMemo 优化
-  const memoryConfig = useMemo(() => {
-    if (!user) return null;
-    return createStableMemoryConfig(user);
-  }, [user?.settings?.chat?.zhipuApiKey, user?.settings?.chat?.apiProvider, user?.settings?.chat?.characterApiKey, user?.settings?.chat?.openrouter]);
 
   // Character context
   const {
@@ -2506,7 +2419,7 @@ const App = () => {
         </View>
       )}
 
-      <MemoryProvider config={memoryConfig || undefined}>
+      <MemoryProvider>
         <Mem0Initializer />
         
         <View style={styles.backgroundContainer}>
