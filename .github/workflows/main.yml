@@ -65,10 +65,18 @@ jobs:
           ls -R android/app/build/outputs/apk
 
       # 自动匹配并拷贝 APK
-      - name: Collect Universal APK
-        run: |
-          mkdir -p output
-          cp android/app/build/outputs/apk/release/*.apk output/
+      - - name: Collect Universal APK
+  run: |
+    mkdir -p output
+    if [ -f android/app/build/outputs/apk/release/app-universal-release.apk ]; then
+      cp android/app/build/outputs/apk/release/app-universal-release.apk output/
+    elif [ -f android/app/build/outputs/apk/release/app-release.apk ]; then
+      cp android/app/build/outputs/apk/release/app-release.apk output/
+    else
+      echo "❌ No APK found in release folder"
+      exit 1
+    fi
+
 
       - name: Upload Universal APK
         uses: actions/upload-artifact@v3
